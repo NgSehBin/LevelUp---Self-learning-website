@@ -1,3 +1,5 @@
+"use client";
+
 import { FileUploadDashboard } from "./components/dashboard";
 
 export default function Home() {
