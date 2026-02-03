@@ -7,9 +7,12 @@ from pydantic import BaseModel
 import json
 
 # --- CONFIGURATION ---
-os.environ["GOOGLE_API_KEY"] = "AIzaSyChJqbUIg0QDCg0zmvDEUleVte_FD4D2FM" 
+# Load API key from environment (do NOT hard-code secrets)
+GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
+if not GOOGLE_API_KEY:
+    raise RuntimeError("Missing required environment variable: GOOGLE_API_KEY")
 
-client = genai.Client(api_key=os.environ["GOOGLE_API_KEY"])
+client = genai.Client(api_key=GOOGLE_API_KEY)
 
 app = FastAPI()
 
