@@ -10,7 +10,8 @@ __pycache__/
 node_modules/
 
 # Environment
-.env*
+.env
+!.env.example  # allow example file in repo, but keep real .env out
 
 # Editor/IDE
 .vscode/
