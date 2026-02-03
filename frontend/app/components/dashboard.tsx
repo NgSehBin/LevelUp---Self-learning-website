@@ -145,7 +145,7 @@ Top missing skills: Leadership, Data Analysis
 
       // 2. Send it to your backend
       // Make sure main.py is running on port 8000!
-      const response = await fetch("http://localhost:8000/analyze", {
+      const response = await fetch("https://levelup-backend-a02d.onrender.com", {
         method: "POST",
         body: formData,
       })
