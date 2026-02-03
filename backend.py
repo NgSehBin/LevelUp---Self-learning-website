@@ -7,12 +7,12 @@ from pydantic import BaseModel
 import json
 
 # --- CONFIGURATION ---
-# Load API key from environment (do NOT hard-code secrets)
+# safer env loading
 GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
 if not GOOGLE_API_KEY:
-    raise RuntimeError("Missing required environment variable: GOOGLE_API_KEY")
-
-client = genai.Client(api_key=GOOGLE_API_KEY)
+    # don't crash at import time — log and let endpoints return an error instead
+    print("Warning: GOOGLE_API_KEY not set. Some features will be disabled.")
+client = genai.Client(api_key=GOOGLE_API_KEY) if GOOGLE_API_KEY else None
 
 app = FastAPI()
 
@@ -192,6 +192,8 @@ async def analyze_document(
         print(f"Error: {e}")
         return {"status": "error", "message": str(e)}
 
+# ... later, use PORT env var when running locally:
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
