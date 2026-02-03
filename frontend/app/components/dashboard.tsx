@@ -174,7 +174,13 @@ Top missing skills: Leadership, Data Analysis
       }
 
       // 4. Update the Markdown screen with the AI's answer
-      setMarkdownContent(data.analysis)
+      console.log("BACKEND SAYS:", data); // Check your console to see this!
+
+    if (data.analysis) {
+      setMarkdownContent(data.analysis);
+    } else {
+      alert("Backend returned empty analysis!");
+    }
 
     } catch (err) {
       console.error(err)
